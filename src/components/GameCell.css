@@ -1,0 +1,124 @@
+.game-cell {
+  background-color: #cdc1b4;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 24px;
+  transition: all 0.15s ease-in-out;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-cell__value {
+  color: #776e65;
+  line-height: 1;
+  z-index: 1;
+}
+
+.game-cell--new {
+  animation: cell-appear 0.2s ease-in-out;
+}
+
+@keyframes cell-appear {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-cell--2 {
+  background-color: #eee4da;
+  color: #776e65;
+}
+
+.game-cell--4 {
+  background-color: #ede0c8;
+  color: #776e65;
+}
+
+.game-cell--8 {
+  background-color: #f2b179;
+  color: #f9f6f2;
+}
+
+.game-cell--16 {
+  background-color: #f59563;
+  color: #f9f6f2;
+}
+
+.game-cell--32 {
+  background-color: #f67c5f;
+  color: #f9f6f2;
+}
+
+.game-cell--64 {
+  background-color: #f65e3b;
+  color: #f9f6f2;
+}
+
+.game-cell--128 {
+  background-color: #edcf72;
+  color: #f9f6f2;
+  font-size: 20px;
+}
+
+.game-cell--256 {
+  background-color: #edcc61;
+  color: #f9f6f2;
+  font-size: 20px;
+}
+
+.game-cell--512 {
+  background-color: #edc850;
+  color: #f9f6f2;
+  font-size: 20px;
+}
+
+.game-cell--1024 {
+  background-color: #edc53f;
+  color: #f9f6f2;
+  font-size: 18px;
+}
+
+.game-cell--2048 {
+  background-color: #edc22e;
+  color: #f9f6f2;
+  font-size: 18px;
+  box-shadow: 0 0 20px 5px rgba(243, 215, 116, 0.2);
+}
+
+.game-cell--4096,
+.game-cell--8192,
+.game-cell--16384 {
+  background-color: #3c3a32;
+  color: #f9f6f2;
+  font-size: 16px;
+}
+
+@media (max-width: 480px) {
+  .game-cell {
+    font-size: 18px;
+  }
+
+  .game-cell--128,
+  .game-cell--256,
+  .game-cell--512 {
+    font-size: 16px;
+  }
+
+  .game-cell--1024,
+  .game-cell--2048 {
+    font-size: 14px;
+  }
+
+  .game-cell--4096,
+  .game-cell--8192,
+  .game-cell--16384 {
+    font-size: 12px;
+  }
+}

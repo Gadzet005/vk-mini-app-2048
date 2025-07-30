@@ -1,0 +1,31 @@
+.game-board {
+  background-color: #bbada0;
+  border-radius: 10px;
+  padding: 8px;
+  position: relative;
+  margin: 10px auto;
+  max-width: 350px;
+  width: 100%;
+  touch-action: none;
+  user-select: none;
+}
+
+.game-board__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  aspect-ratio: 1;
+}
+
+@media (max-width: 480px) {
+  .game-board {
+    max-width: 280px;
+    padding: 6px;
+    margin: 8px auto;
+  }
+
+  .game-board__grid {
+    gap: 6px;
+  }
+}
