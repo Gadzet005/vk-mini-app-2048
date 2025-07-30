@@ -4,7 +4,7 @@ export interface StorageData {
     bestScore: number;
 }
 
-export const saveToStorage = (data: StorageData): void => {
+export const saveToStorage = (data: StorageData) => {
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch (error) {

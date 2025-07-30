@@ -1,4 +1,4 @@
-import type { Board, Direction } from "../types/game";
+import type { Board, Direction, Row } from "../types/game";
 import { cloneBoard } from "./board";
 import { BOARD_SIZE } from "./consts";
 
@@ -8,18 +8,15 @@ interface MoveResult {
     moved: boolean;
 }
 
-function isRowsEqual(
-    row1: (number | null)[],
-    row2: (number | null)[]
-): boolean {
+function isRowsEqual(row1: Row, row2: Row): boolean {
     for (let i = 0; i < row1.length; i++) {
         if (row1[i] !== row2[i]) return false;
     }
     return true;
 }
 
-function processRow(row: (number | null)[]): {
-    row: (number | null)[];
+function processRow(row: Row): {
+    row: Row;
     score: number;
 } {
     const filtered = row.filter((cell) => cell !== null);
@@ -35,7 +32,7 @@ function processRow(row: (number | null)[]): {
     }
 
     const merged = filtered.filter((cell) => cell !== 0);
-    const result: (number | null)[] = [...merged];
+    const result: Row = [...merged];
     while (result.length < BOARD_SIZE) {
         result.push(null);
     }
@@ -43,18 +40,17 @@ function processRow(row: (number | null)[]): {
     return { row: result, score };
 }
 
-function rotateBoard(board: Board): Board {
-    const rotated: Board = Array(BOARD_SIZE)
-        .fill(null)
-        .map(() => Array(BOARD_SIZE).fill(null));
-
-    for (let row = 0; row < BOARD_SIZE; row++) {
-        for (let col = 0; col < BOARD_SIZE; col++) {
-            rotated[col][BOARD_SIZE - row - 1] = board[row][col];
+function rotateBoard(board: Board) {
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        for (let j = i + 1; j < BOARD_SIZE; j++) {
+            const temp = board[i][j];
+            board[i][j] = board[j][i];
+            board[j][i] = temp;
         }
     }
-
-    return rotated;
+    for (let i = 0; i < BOARD_SIZE; i++) {
+        board[i].reverse();
+    }
 }
 
 function moveLeft(board: Board): MoveResult {
@@ -78,36 +74,36 @@ function moveLeft(board: Board): MoveResult {
 }
 
 function moveRight(board: Board): MoveResult {
-    let rotated = rotateBoard(board);
-    rotated = rotateBoard(rotated);
+    rotateBoard(board);
+    rotateBoard(board);
 
-    const result = moveLeft(rotated);
+    const result = moveLeft(board);
 
-    result.board = rotateBoard(result.board);
-    result.board = rotateBoard(result.board);
+    rotateBoard(result.board);
+    rotateBoard(result.board);
 
     return result;
 }
 
 function moveUp(board: Board): MoveResult {
-    let rotated = rotateBoard(board);
-    rotated = rotateBoard(rotated);
-    rotated = rotateBoard(rotated);
+    rotateBoard(board);
+    rotateBoard(board);
+    rotateBoard(board);
 
-    const result = moveLeft(rotated);
+    const result = moveLeft(board);
 
-    result.board = rotateBoard(result.board);
+    rotateBoard(result.board);
 
     return result;
 }
 
 function moveDown(board: Board): MoveResult {
-    const rotated = rotateBoard(board);
-    const result = moveLeft(rotated);
+    rotateBoard(board);
+    const result = moveLeft(board);
 
-    result.board = rotateBoard(result.board);
-    result.board = rotateBoard(result.board);
-    result.board = rotateBoard(result.board);
+    rotateBoard(result.board);
+    rotateBoard(result.board);
+    rotateBoard(result.board);
 
     return result;
 }
