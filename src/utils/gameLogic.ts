@@ -26,13 +26,11 @@ function processRow(row: Row): {
         if (filtered[i] === filtered[i + 1]) {
             filtered[i] *= 2;
             score += filtered[i];
-            filtered[i + 1] = 0;
-            i++;
+            filtered.splice(i + 1, 1);
         }
     }
 
-    const merged = filtered.filter((cell) => cell !== 0);
-    const result: Row = [...merged];
+    const result: Row = [...filtered];
     while (result.length < BOARD_SIZE) {
         result.push(null);
     }
@@ -74,10 +72,11 @@ function moveLeft(board: Board): MoveResult {
 }
 
 function moveRight(board: Board): MoveResult {
-    rotateBoard(board);
-    rotateBoard(board);
+    const newBoard = cloneBoard(board);
+    rotateBoard(newBoard);
+    rotateBoard(newBoard);
 
-    const result = moveLeft(board);
+    const result = moveLeft(newBoard);
 
     rotateBoard(result.board);
     rotateBoard(result.board);
@@ -86,11 +85,12 @@ function moveRight(board: Board): MoveResult {
 }
 
 function moveUp(board: Board): MoveResult {
-    rotateBoard(board);
-    rotateBoard(board);
-    rotateBoard(board);
+    const newBoard = cloneBoard(board);
+    rotateBoard(newBoard);
+    rotateBoard(newBoard);
+    rotateBoard(newBoard);
 
-    const result = moveLeft(board);
+    const result = moveLeft(newBoard);
 
     rotateBoard(result.board);
 
@@ -98,8 +98,9 @@ function moveUp(board: Board): MoveResult {
 }
 
 function moveDown(board: Board): MoveResult {
-    rotateBoard(board);
-    const result = moveLeft(board);
+    const newBoard = cloneBoard(board);
+    rotateBoard(newBoard);
+    const result = moveLeft(newBoard);
 
     rotateBoard(result.board);
     rotateBoard(result.board);
