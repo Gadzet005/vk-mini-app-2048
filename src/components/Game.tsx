@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import vkBridge from "@vkontakte/vk-bridge";
 import { useGameState } from "../hooks/useGameState";
 import { useKeyboard } from "../hooks/useKeyboard";
@@ -7,13 +7,19 @@ import { GameBoard } from "./GameBoard";
 import { ScoreBoard } from "./ScoreBoard";
 import { GameControls } from "./GameControls";
 import { GameOverModal } from "./GameOverModal";
+import { WelcomeModal } from "./WelcomeModal";
 import "./Game.css";
 import { VKBridgeEvents } from "../consts/vk";
 
 export const Game: React.FC = () => {
+  const [showWelcome, setShowWelcome] = useState(true);
   const { gameState, makeMove, restart, justWon, continueGame } =
     useGameState();
-  const disabled = gameState.gameOver || justWon;
+  const disabled = gameState.gameOver || justWon || showWelcome;
+
+  const handleStartGame = () => {
+    setShowWelcome(false);
+  };
 
   useKeyboard({
     onMove: makeMove,
@@ -35,7 +41,6 @@ export const Game: React.FC = () => {
   return (
     <div className="game">
       <header className="game__header">
-        <h1 className="game__title">2048</h1>
         <ScoreBoard score={gameState.score} bestScore={gameState.bestScore} />
       </header>
 
@@ -56,6 +61,8 @@ export const Game: React.FC = () => {
         onRestart={restart}
         onContinue={justWon ? continueGame : undefined}
       />
+
+      <WelcomeModal isVisible={showWelcome} onStart={handleStartGame} />
     </div>
   );
 };

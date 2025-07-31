@@ -26,24 +26,3 @@
   font-weight: bold;
   color: #ffffff;
 }
-
-@media (max-width: 480px) {
-  .score-board {
-    gap: 6px;
-    margin: 8px 0;
-  }
-
-  .score-board__item {
-    padding: 6px 12px;
-    min-width: 60px;
-  }
-
-  .score-board__label {
-    font-size: 10px;
-    margin-bottom: 2px;
-  }
-
-  .score-board__value {
-    font-size: 14px;
-  }
-}

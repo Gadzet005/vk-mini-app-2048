@@ -20,18 +20,11 @@
   flex-shrink: 0;
 }
 
-.game__title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #776e65;
-  margin: 0 0 5px 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
 .game__main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex: 1;
   overflow: hidden;
 }
@@ -39,10 +32,6 @@
 @media (max-width: 480px) {
   .game {
     padding: 8px;
-  }
-
-  .game__title {
-    font-size: 28px;
   }
 
   .game__header {
