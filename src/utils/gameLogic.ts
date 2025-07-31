@@ -1,6 +1,6 @@
 import type { Board, Direction, Row } from "../types/game";
 import { cloneBoard } from "./board";
-import { BOARD_SIZE } from "./consts";
+import { BOARD_SIZE } from "../consts/game";
 
 interface MoveResult {
     board: Board;

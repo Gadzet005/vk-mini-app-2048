@@ -1,5 +1,5 @@
 import type { Board, Position } from "../types/game";
-import { BOARD_SIZE, randomCellValue, WINNING_TILE } from "./consts";
+import { BOARD_SIZE, randomCellValue, WINNING_TILE } from "../consts/game";
 
 export function createEmptyBoard(): Board {
     return Array(BOARD_SIZE)

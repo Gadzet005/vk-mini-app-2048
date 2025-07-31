@@ -33,7 +33,7 @@ export const GameOverModal: React.FC<GameOverModalProps> = ({
             {won ? "Вы достигли цели 2048!" : "Больше нет доступных ходов"}
           </p>
           <p className="modal__score">
-            Ваш счёт: <strong>{score.toLocaleString("ru-RU")}</strong>
+            Ваш счёт: <strong>{score}</strong>
           </p>
           <div className="modal__buttons">
             <button

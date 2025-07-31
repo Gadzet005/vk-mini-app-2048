@@ -8,6 +8,7 @@ import { ScoreBoard } from "./ScoreBoard";
 import { GameControls } from "./GameControls";
 import { GameOverModal } from "./GameOverModal";
 import "./Game.css";
+import { VKBridgeEvents } from "../consts/vk";
 
 export const Game: React.FC = () => {
   const { gameState, makeMove, restart, justWon, continueGame } =
@@ -26,24 +27,10 @@ export const Game: React.FC = () => {
   });
 
   useEffect(() => {
-    vkBridge.send("VKWebAppInit");
-    vkBridge.send("VKWebAppSetViewSettings", {
-      status_bar_style: "dark",
-      action_bar_color: "#faf8ef",
+    vkBridge.send(VKBridgeEvents.Init).catch((error) => {
+      console.error("Ошибка инициализации VK Bridge:", error);
     });
   }, []);
-
-  useEffect(() => {
-    if (gameState.won && !justWon) {
-      vkBridge
-        .send("VKWebAppShowLeaderBoardBox", {
-          user_result: gameState.score,
-        })
-        .catch(() => {
-          console.error("Ошибка при отправке результата в VK");
-        });
-    }
-  }, [gameState.won, gameState.score, justWon]);
 
   return (
     <div className="game">
